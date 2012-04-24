@@ -1,7 +1,7 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first active"><%%= link_to "#{t("web-app-theme.list", :default => "List")}", <%= controller_routing_path %>_path  %></li>
+      <li class="first active"><%%= link_to "#{t("web-app-theme.list", :default => "List")}", <%= controller_routing_path %>_index_path  %></li>
       <li><%%= link_to "#{t("web-app-theme.new", :default => "New")}", new_<%= singular_controller_routing_path %>_path %></li>
     </ul>
   </div>
@@ -45,6 +45,9 @@
         </div>
         <% if options.will_paginate %>
         <%%= will_paginate @<%= plural_resource_name %>  %>
+        <% end %>
+        <% if options.paginate %>
+        <%%= paginate @<%= plural_resource_name %>  %>
         <% end %>
       </div>
     </div>

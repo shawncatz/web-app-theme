@@ -10,6 +10,7 @@ module WebAppTheme
     class_option :layout,         :type => :string,   :desc => 'Specify the layout name'
     class_option :engine,         :type => :string,   :default => 'erb', :desc => 'Specify the template engine'
     class_option :will_paginate,  :type => :boolean,  :default => false, :desc => 'Specify if you use will_paginate'
+    class_option :paginate,       :type => :boolean,  :default => false, :desc => 'Specify if you use paginate (kaminari)'
     class_option :themed_type,    :type => :string,   :default => 'crud', :desc => 'Specify the themed type, crud or text. Default is crud'
     
     def initialize(args, *options)
@@ -23,7 +24,7 @@ module WebAppTheme
         if options.engine =~ /erb/
           gsub_file(File.join('app/views/layouts', "#{options[:layout]}.html.#{options.engine}"), /\<div\s+id=\"main-navigation\">.*\<\/ul\>/mi) do |match|
             match.gsub!(/\<\/ul\>/, "")
-            %|#{match} <li class="<%= controller.controller_path == '#{@controller_file_path}' ? 'active' : '' %>"><a href="<%= #{controller_routing_path}_path %>">#{plural_model_name}</a></li></ul>|
+            %|#{match} \n<li class="<%= controller.controller_path == '#{@controller_file_path}' ? 'active' : '' %>"><a href="<%= #{controller_routing_path}_index_path %>">#{plural_model_name}</a></li>\n</ul>|
           end
         elsif options.engine =~ /haml/
           gsub_file(File.join('app/views/layouts', "#{options[:layout]}.html.#{options.engine}"), /#main-navigation.*#wrapper.wat-cf/mi) do |match|
