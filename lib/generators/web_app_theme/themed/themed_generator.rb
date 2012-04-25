@@ -24,7 +24,7 @@ module WebAppTheme
         if options.engine =~ /erb/
           gsub_file(File.join('app/views/layouts', "#{options[:layout]}.html.#{options.engine}"), /\<div\s+id=\"main-navigation\">.*\<\/ul\>/mi) do |match|
             match.gsub!(/\<\/ul\>/, "")
-            %|#{match} \n<li class="<%= controller.controller_path == '#{@controller_file_path}' ? 'active' : '' %>"><a href="<%= #{controller_routing_path}_index_path %>">#{plural_model_name}</a></li>\n</ul>|
+            %|#{match} \n<li class="<%= controller.controller_path == '#{@controller_file_path}' ? 'active' : '' %>"><a href="<%= #{controller_routing_path}_path %>">#{plural_model_name}</a></li>\n</ul>|
           end
         elsif options.engine =~ /haml/
           gsub_file(File.join('app/views/layouts', "#{options[:layout]}.html.#{options.engine}"), /#main-navigation.*#wrapper.wat-cf/mi) do |match|
